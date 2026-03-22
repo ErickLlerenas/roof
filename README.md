@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RoofMetrics SaaS 🏠📐
 
-## Getting Started
+Welcome to the **RoofMetrics SaaS** repository. This is a modern, scalable Software as a Service designed specifically for roofing contractors in the US. It provides tools for lead management, satellite-based roof measurement (manual polygon drawing), and automated estimate generation in PDF format.
 
-First, run the development server:
+## 🚀 Project Overview & Architecture
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This project is built with the modern standard stack for scalable SaaS applications:
+
+### Frontend (Current implementation)
+- **Framework:** Next.js 15 (App Router) with React 19.
+- **Language:** TypeScript for type safety and better developer experience.
+- **Styling:** Tailwind CSS v4 + `shadcn/ui` for beautiful, accessible, and customizable components.
+- **Icons:** `lucide-react`.
+
+### Core Features & Libraries
+- **Mapping & Measurement:** 
+  - `mapbox-gl` & `react-map-gl`: For rendering high-quality satellite imagery.
+  - `@mapbox/mapbox-gl-draw`: To allow users to manually draw polygons over roofs.
+  - `@turf/turf`: For complex geospatial mathematics, specifically calculating the area of the drawn polygons in square feet/meters.
+- **PDF Generation:** 
+  - `@react-pdf/renderer`: To generate professional estimate reports directly in the browser.
+
+### Backend & Database (Planned Infrastructure)
+While this MVP currently uses mock data in the frontend, the architecture is designed to seamlessly integrate with **Supabase**.
+- **Database:** PostgreSQL (via Supabase) to store Leads, Clients, Projects, and Measurements.
+- **Authentication:** Supabase Auth (Email/Password, Google OAuth).
+- **Storage:** Supabase Storage to save the generated PDF reports and roof screenshots.
+- **Row Level Security (RLS):** To ensure each roofing company only sees their own data.
+
+## 🏗️ Folder Structure
+
+```
+roof-metrics/
+├── src/
+│   ├── app/                # Next.js App Router pages (Dashboard, Leads, Clients, Cotizador)
+│   ├── components/         # React components
+│   │   ├── ui/             # shadcn/ui generic components (Buttons, Cards, Tables, etc.)
+│   │   ├── Sidebar.tsx     # App navigation sidebar
+│   │   └── AppLayout.tsx   # Main layout wrapper
+│   └── lib/                # Utility functions (e.g., tailwind merge)
+├── public/                 # Static assets
+└── package.json            # Dependencies and scripts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🗺️ The Measurement Logic (How it works)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Satellite View:** Mapbox displays a high-res satellite view. The user searches for an address to center the map.
+2. **Drawing:** Using Mapbox Draw, the user clicks the corners of the roof to create a polygon.
+3. **Flat Area Calculation:** Turf.js takes the polygon coordinates and calculates the flat 2D area.
+4. **Pitch Adjustment (Crucial for Roofing):** Roofs are angled, meaning the actual surface area is larger than the flat footprint. 
+   - We apply a multiplier based on the Roof Pitch (e.g., 4/12, 6/12 pitch).
+   - Formula: `Total Area = Flat Area × Pitch Multiplier`
+5. **Waste Factor:** Typically, roofers add a 10-15% waste factor to account for cut shingles.
+6. **Estimate:** The final square footage is divided by 100 to get "Squares" (1 roofing square = 100 sq ft), which is how materials are ordered.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Getting Started
 
-## Learn More
+### Prerequisites
+- Node.js 18+
+- A Mapbox Access Token (Create a free account at mapbox.com)
 
-To learn more about Next.js, take a look at the following resources:
+### Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository and install dependencies:
+```bash
+npm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Set up your environment variables:
+Create a `.env.local` file in the root directory and add your Mapbox token:
+```env
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.your_mapbox_token_here
+```
 
-## Deploy on Vercel
+3. Run the development server:
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📋 Future Roadmap
+
+- [ ] **Phase 1:** UI/UX, Navigation, Mock CRUDs (Completed)
+- [ ] **Phase 2:** Mapbox integration, drawing tools, Turf.js calculations (In Progress)
+- [ ] **Phase 3:** PDF Generation with react-pdf
+- [ ] **Phase 4:** Connect to Supabase (Auth, Database, Storage)
+- [ ] **Phase 5:** Stripe Integration for SaaS subscriptions
+- [ ] **Phase 6:** AI auto-detection of roof boundaries (Future implementation using Computer Vision APIs)
