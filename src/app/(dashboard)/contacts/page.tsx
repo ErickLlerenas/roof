@@ -97,11 +97,9 @@ export default function ContactsPage() {
         </div>
         
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button onClick={() => handleOpenDialog()}>
-              <Plus className="mr-2 h-4 w-4" />
-              New Contact
-            </Button>
+          <DialogTrigger render={<Button onClick={() => handleOpenDialog()} />}>
+            <Plus className="mr-2 h-4 w-4" />
+            New Contact
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
