@@ -40,8 +40,8 @@ export default function LandingPage() {
           <div className="flex-1 w-full relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-blue-500/20 rounded-2xl blur-3xl -z-10"></div>
             <img 
-              src="https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2940&auto=format&fit=crop" 
-              alt="Roofing professional using tablet" 
+              src="/satellite-roof-map.png" 
+              alt="Satellite map view of a roof measurement" 
               className="rounded-2xl shadow-2xl border w-full object-cover aspect-video md:aspect-square"
             />
           </div>
