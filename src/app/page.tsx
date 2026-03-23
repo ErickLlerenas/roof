@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { LoginButton } from "@/components/LoginButton";
 import { Calculator, ArrowRight, ShieldCheck, Zap, Layers } from "lucide-react";
 
 export default function LandingPage() {
@@ -11,9 +11,7 @@ export default function LandingPage() {
           <span>RoofMetrics</span>
         </div>
         <div className="flex items-center gap-4">
-          <Link href="/login">
-            <Button>Get Started</Button>
-          </Link>
+          <LoginButton>Get Started</LoginButton>
         </div>
       </header>
 
@@ -30,15 +28,13 @@ export default function LandingPage() {
               All-in-one CRM, satellite roof measurement, and automated estimate generator for professional roofers.
             </p>
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
-              <Link href="/login">
-                <Button size="lg" className="w-full sm:w-auto text-lg px-8 h-14">
-                  Get Started for Free <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <LoginButton size="lg" className="w-full sm:w-auto text-lg px-8 h-14">
+                Get Started for Free <ArrowRight className="ml-2 h-5 w-5" />
+              </LoginButton>
             </div>
           </div>
           <div className="flex-1 w-full relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-blue-500/20 rounded-2xl blur-3xl -z-10"></div>
+            <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-blue-500/20 rounded-2xl blur-3xl -z-10"></div>
             <img 
               src="/satellite-roof-map.png" 
               alt="Satellite map view of a roof measurement" 

@@ -33,9 +33,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Protected routes condition
-  const isAuthRoute =
-    request.nextUrl.pathname.startsWith("/login") ||
-    request.nextUrl.pathname.startsWith("/auth");
+  const isAuthRoute = request.nextUrl.pathname.startsWith("/auth");
 
   if (!user && !isAuthRoute) {
     // Redirect unauthenticated users to landing page

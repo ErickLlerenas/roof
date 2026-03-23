@@ -13,21 +13,21 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   // Don't show layout on auth pages or landing page
-  if (pathname === '/' || pathname.startsWith('/login') || pathname.startsWith('/auth')) {
+  if (pathname === '/' || pathname.startsWith('/auth')) {
     return <>{children}</>;
   }
 
   const handleLogout = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push('/login');
+    router.push('/');
     router.refresh();
   };
 
   return (
     <TooltipProvider>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-        <div className="flex flex-col border-r bg-muted/40 hidden md:flex h-full">
+        <div className="hidden flex-col border-r bg-muted/40 md:flex h-full">
           <Sidebar />
           <div className="mt-auto p-4 border-t">
             <Button variant="outline" className="w-full justify-start text-muted-foreground" onClick={handleLogout}>
