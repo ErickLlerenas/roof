@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Users, Calculator, Briefcase, Menu, Contact, FileText } from "lucide-react";
+import {
+  Home,
+  Users,
+  Calculator,
+  Briefcase,
+  Menu,
+  Contact,
+  FileText,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
@@ -28,7 +36,9 @@ export function Sidebar() {
         <nav className="grid items-start px-2 text-sm font-medium lg:px-4 mt-4 space-y-1">
           {routes.map((route) => {
             const Icon = route.icon;
-            const isActive = pathname === route.href || (pathname.startsWith(route.href) && route.href !== "/");
+            const isActive =
+              pathname === route.href ||
+              (pathname.startsWith(route.href) && route.href !== "/");
 
             return (
               <Link
@@ -36,7 +46,7 @@ export function Sidebar() {
                 href={route.href}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
-                  isActive ? "bg-muted text-primary" : ""
+                  isActive ? "bg-muted text-primary" : "",
                 )}
               >
                 <Icon className="h-4 w-4" />

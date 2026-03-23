@@ -24,7 +24,7 @@ export function RoofMap({ onAreaCalculated }: RoofMapProps) {
             mapRef.current.flyTo({
               center: [position.coords.longitude, position.coords.latitude],
               zoom: 18, // Close enough to see roofs
-              duration: 2000
+              duration: 2000,
             });
             setUserLocationLoaded(true);
           }
@@ -32,7 +32,7 @@ export function RoofMap({ onAreaCalculated }: RoofMapProps) {
         (error) => {
           console.warn("Geolocation error:", error);
           // Fallback to initial location, nothing to do
-        }
+        },
       );
     }
   }, [userLocationLoaded]);
@@ -40,15 +40,15 @@ export function RoofMap({ onAreaCalculated }: RoofMapProps) {
   const onMapLoad = () => {
     if (!mapRef.current) return;
     const map = mapRef.current.getMap();
-    
+
     if (!drawRef.current) {
       drawRef.current = new MapboxDraw({
         displayControlsDefault: false,
         controls: {
           polygon: true,
-          trash: true
+          trash: true,
         },
-        defaultMode: "draw_polygon"
+        defaultMode: "draw_polygon",
       });
       map.addControl(drawRef.current as any, "top-left");
 
@@ -78,7 +78,9 @@ export function RoofMap({ onAreaCalculated }: RoofMapProps) {
     return (
       <div className="flex h-[500px] items-center justify-center bg-muted text-muted-foreground p-8 text-center rounded-lg border border-dashed">
         <p>
-          Configure your Mapbox token in the <code>.env</code> file to see the map.<br/>
+          Configure your Mapbox token in the <code>.env</code> file to see the
+          map.
+          <br />
           <em>(NEXT_PUBLIC_MAPBOX_TOKEN=pk...)</em>
         </p>
       </div>
@@ -92,7 +94,7 @@ export function RoofMap({ onAreaCalculated }: RoofMapProps) {
         initialViewState={{
           longitude: -95.7129,
           latitude: 37.0902,
-          zoom: 4
+          zoom: 4,
         }}
         mapStyle="mapbox://styles/mapbox/satellite-v9"
         mapboxAccessToken={mapboxToken}

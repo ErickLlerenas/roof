@@ -10,8 +10,12 @@ const PDFDownloadLink = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
   {
     ssr: false,
-    loading: () => <Button className="w-full mt-4" size="lg" disabled>Cargando PDF...</Button>,
-  }
+    loading: () => (
+      <Button className="w-full mt-4" size="lg" disabled>
+        Cargando PDF...
+      </Button>
+    ),
+  },
 );
 
 interface PDFDownloadButtonProps {
@@ -26,7 +30,12 @@ export function PDFDownloadButton({ data, disabled }: PDFDownloadButtonProps) {
     setIsClient(true);
   }, []);
 
-  if (!isClient) return <Button className="w-full mt-4" size="lg" disabled>Generando...</Button>;
+  if (!isClient)
+    return (
+      <Button className="w-full mt-4" size="lg" disabled>
+        Generando...
+      </Button>
+    );
 
   if (disabled) {
     return (
@@ -45,7 +54,7 @@ export function PDFDownloadButton({ data, disabled }: PDFDownloadButtonProps) {
       >
         {({ loading }: any) => (
           <Button className="w-full" size="lg" disabled={loading}>
-            {loading ? 'Preparing document...' : 'Download PDF Report'}
+            {loading ? "Preparing document..." : "Download PDF Report"}
           </Button>
         )}
       </PDFDownloadLink>
