@@ -42,6 +42,8 @@ const buttonVariants = cva(
   }
 )
 
+export type ButtonProps = ButtonPrimitive.Props & VariantProps<typeof buttonVariants>
+
 function Button({
   className,
   variant = "default",
